@@ -48,7 +48,7 @@ const JobCard: React.FC<Props> = ({ job, onFilterClick }) => {
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap gap-4 border-t md:border-t-0 pt-4 md:pt-0 mt-4 md:mt-0">
+        <div className="flex flex-wrap gap-4 border-t md:border-t-0 pt-4 md:pt-0 mt-4 md:mt-0" >
           {[job.role, job.level, ...job.languages, ...job.tools].map((tag) => (
             <button
               key={tag}

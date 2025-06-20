@@ -19,12 +19,13 @@ const FilterBar: React.FC<FilterBarProps> = ({
         {selectedFilters.map((filter) => (
           <span
             key={filter}
-            className="bg-filterTabs flex items-center rounded overflow-hidden"
+            className="bg-filterTabs flex items-center rounded overflow-hidden group"
           >
-            <span className="px-2 py-1 text-primary">{filter}</span>
+            <span className="px-2 py-1 text-primary font-bold">{filter}</span>
             <button
               onClick={() => onFilterRemove(filter)}
-              className="bg-primary text-white px-2 py-1 hover:bg-veryDarkGrayish"
+              className="bg-primary text-white px-2 py-1 transition-colors duration-200 hover:bg-veryDarkGrayish"
+              aria-label={`Remove ${filter} filter`}
             >
               ✕
             </button>
@@ -33,7 +34,7 @@ const FilterBar: React.FC<FilterBarProps> = ({
       </div>
       <button
         onClick={onClearFilters}
-        className="text-darkGrayish hover:text-primary hover:underline"
+        className="text-darkGrayish font-bold transition-colors duration-200 hover:text-primary"
       >
         Clear
       </button>
