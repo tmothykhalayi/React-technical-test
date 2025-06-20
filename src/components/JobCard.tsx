@@ -21,7 +21,7 @@ const JobCard: React.FC<Props> = ({ job, onFilterClick }) => {
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.onerror = null;
-              target.src = '/images/fallback-image.svg'; // Optional: provide a fallback image
+              target.src = '/images/fallback-image.svg'; 
             }}
           />
           <div>
