@@ -11,4 +11,10 @@ export default defineConfig({
       }
     }),
     tailwindcss()],
+  resolve: {
+    alias: {
+      '@': '/src'
+    }
+  },
+  assetsInclude: ['**/*.svg']
 })

@@ -6,11 +6,33 @@ interface Props {
 }
 
 const JobCard: React.FC<Props> = ({ job }) => {
+  const getImagePath = (logo: string) => {
+    try {
+      // Remove '../' and '/images/' from the path to get just the filename
+      const imageName = logo.replace(/^\.\.\/images\//, '');
+      // Dynamically import the image
+      const imageUrl = new URL(`../images/${imageName}`, import.meta.url).href;
+      return imageUrl;
+    } catch (error) {
+      console.error('Error loading image:', error);
+      return '/fallback-image.svg';
+    }
+  };
+
   return (
     <div className={`bg-white rounded-md shadow-md p-6 ${job.featured ? 'border-l-4 border-primary' : ''}`}>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex gap-4">
-          <img src={job.logo} alt={job.company} className="h-12 w-12" />
+          <img
+            src={getImagePath(job.logo)}
+            alt={job.company}
+            className="h-12 w-12 object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.onerror = null;
+              target.src = '/fallback-image.svg';
+            }}
+          />
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="text-primary font-bold">{job.company}</span>
