@@ -3,65 +3,60 @@ import type { Job } from '../Types/Job';
 
 interface Props {
   job: Job;
+  onFilterClick: (tag: string) => void;
 }
 
-const JobCard: React.FC<Props> = ({ job }) => {
-  const getImagePath = (logo: string) => {
-    try {
-      const imageName = logo.replace(/^\.\.\/images\//, '');
-      const imageUrl = new URL(`../images/${imageName}`, import.meta.url).href;
-      return imageUrl;
-    } catch (error) {
-      console.error('Error loading image:', error);
-      return '/fallback-image.svg';
-    }
-  };
+const JobCard: React.FC<Props> = ({ job, onFilterClick }) => {
+  
+  const imageUrl = job.logo.startsWith('./') ? job.logo.slice(1) : job.logo;
 
   return (
-    <div className={`bg-white rounded-lg shadow-md p-6 mb-4 ${
-      job.featured ? 'border-l-5 border-primary' : ''
-    }`}>
-      <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-        <div className="flex gap-6">
+    <div className={`bg-white rounded-md shadow-md p-6 ${job.featured ? 'border-l-4 border-primary' : ''}`}>
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex gap-4">
           <img
-            src={getImagePath(job.logo)}
+            src={imageUrl}
             alt={job.company}
-            className="w-20 h-20 object-contain"
+            className="h-12 w-12 object-contain"
+            onError={(e) => {
+              const target = e.target as HTMLImageElement;
+              target.onerror = null;
+              target.src = '/images/fallback-image.svg'; // Optional: provide a fallback image
+            }}
           />
-          <div className="flex flex-col justify-between">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-primary font-bold mr-4">{job.company}</span>
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <span className="text-primary font-bold">{job.company}</span>
               {job.new && (
-                <span className="bg-primary text-white px-2 py-1 rounded-full text-sm uppercase">
-                  New!
-                </span>
+                <span className="bg-primary text-white px-2 py-1 rounded-full text-sm">NEW!</span>
               )}
               {job.featured && (
-                <span className="bg-very-dark-cyan text-white px-2 py-1 rounded-full text-sm uppercase">
-                  Featured
+                <span className="bg-veryDarkGrayish text-white px-2 py-1 rounded-full text-sm">
+                  FEATURED
                 </span>
               )}
             </div>
-            <h2 className="text-very-dark-cyan font-bold text-xl hover:text-primary cursor-pointer">
+            <h2 className="font-bold text-veryDarkGrayish hover:text-primary cursor-pointer mb-2">
               {job.position}
             </h2>
-            <div className="text-dark-grayish flex items-center gap-4 text-base">
+            <div className="text-darkGrayish flex gap-4 text-sm">
               <span>{job.postedAt}</span>
-              <span className="w-1 h-1 bg-dark-grayish rounded-full"></span>
+              <span>•</span>
               <span>{job.contract}</span>
-              <span className="w-1 h-1 bg-dark-grayish rounded-full"></span>
+              <span>•</span>
               <span>{job.location}</span>
             </div>
           </div>
         </div>
-        <div className="flex flex-wrap gap-4 pt-4 border-t lg:border-t-0 lg:pt-0">
+        <div className="flex flex-wrap gap-4 border-t md:border-t-0 pt-4 md:pt-0 mt-4 md:mt-0">
           {[job.role, job.level, ...job.languages, ...job.tools].map((tag) => (
-            <span
+            <button
               key={tag}
-              className="bg-light-grayish-cyan-bg text-primary px-4 py-2 rounded font-bold hover:bg-primary hover:text-white cursor-pointer"
+              onClick={() => onFilterClick(tag)}
+              className="bg-filterTabs text-primary px-2 py-1 rounded cursor-pointer hover:bg-primary hover:text-white"
             >
               {tag}
-            </span>
+            </button>
           ))}
         </div>
       </div>

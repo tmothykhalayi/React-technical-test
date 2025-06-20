@@ -8,12 +8,9 @@ export default {
             colors: {
                 'primary': 'hsl(180, 29%, 50%)',
                 'background': 'hsl(180, 52%, 96%)',
-                'light-grayish-cyan-bg': 'hsl(180, 31%, 95%)',
-                'dark-grayish': 'hsl(180, 8%, 52%)',
-                'very-dark-cyan': 'hsl(180, 14%, 20%)',
-            },
-            borderWidth: {
-                '5': '5px',
+                'filterTabs': 'hsl(180, 31%, 95%)',
+                'darkGrayish': 'hsl(180, 8%, 52%)',
+                'veryDarkGrayish': 'hsl(180, 14%, 20%)',
             },
         },
     },
