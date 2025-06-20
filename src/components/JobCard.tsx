@@ -53,7 +53,7 @@ const JobCard: React.FC<Props> = ({ job, onFilterClick }) => {
             <button
               key={tag}
               onClick={() => onFilterClick(tag)}
-              className="bg-filterTabs text-primary px-2 py-1 rounded cursor-pointer hover:bg-primary hover:text-white"
+              className="bg-filterTabs text-primary px-2 py-1 rounded cursor-pointer transition-colors duration-200 hover:bg-black hover:blue font-medium"
             >
               {tag}
             </button>
