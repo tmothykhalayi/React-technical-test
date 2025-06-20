@@ -11,7 +11,7 @@ const JobCard: React.FC<Props> = ({ job, onFilterClick }) => {
   const imageUrl = job.logo.startsWith('./') ? job.logo.slice(1) : job.logo;
 
   return (
-    <div className={`bg-white rounded-md shadow-md p-6 ${job.featured ? 'border-l-4 border-primary' : ''}`}>
+    <div className={`bg-white rounded-md shadow-md p-6 border-l-4 border-primary`}>
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex gap-4">
           <img
